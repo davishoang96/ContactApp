@@ -61,3 +61,8 @@ coverage/
 # Other files and directories
 *.DS_Store
 Thumbs.db
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
