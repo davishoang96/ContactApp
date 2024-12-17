@@ -33,7 +33,7 @@ public class ContactService : IContactService
 
     private async Task<Contact> GetContactModelById(int id)
     {
-        var model = await db.Contacts.SingleOrDefaultAsync(s => s.Id == id);
+        var model = await db.Contacts.Include(s=>s.PhoneNumbers).SingleOrDefaultAsync(s => s.Id == id);
         if (model == null)
         {
             return null;
@@ -86,7 +86,6 @@ public class ContactService : IContactService
             contact.Surname = dto.Surname;
             contact.Email = dto.Email;
             contact.Company = dto.Company;
-
             db.Contacts.Update(contact);
         }
 
