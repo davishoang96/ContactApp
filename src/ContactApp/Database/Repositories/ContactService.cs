@@ -61,7 +61,7 @@ public class ContactService : IContactService
 
     public async Task<int> SaveOrUpdateContact(ContactDTO dto)
     {
-        Contact contact = null;
+        Contact contact;
         if (dto.Id == default)
         {
             // Create a new Contact
