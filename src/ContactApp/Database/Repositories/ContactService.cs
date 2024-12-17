@@ -6,7 +6,7 @@ namespace ContactApp.Database.Repositories;
 
 public interface IContactService
 {
-    Task<int> SaveOrUpdateContact(ContactDTO contactDTO);
+    Task<int> SaveOrUpdateContact(ContactDTO dto);
     Task<ContactDTO> GetContactById(int id);
     Task<IEnumerable<ContactDTO>> GetAllContacts();
 }
@@ -59,38 +59,38 @@ public class ContactService : IContactService
         };
     }
 
-    public async Task<int> SaveOrUpdateContact(ContactDTO contactDTO)
+    public async Task<int> SaveOrUpdateContact(ContactDTO dto)
     {
         Contact contact = null;
-        if (contactDTO.Id == default)
+        if (dto.Id == default)
         {
             // Create a new Contact
             contact = new Contact
             {
-                Email = contactDTO.Email,
-                Company = contactDTO.Company,
-                FirstName = contactDTO.FirstName,
-                Surname = contactDTO.Surname,
-                PhoneNumbers = contactDTO.PhoneNumbers.Select(phoneNumber => new PhoneNumber
+                Email = dto.Email,
+                Company = dto.Company,
+                FirstName = dto.FirstName,
+                Surname = dto.Surname,
+                PhoneNumbers = dto.PhoneNumbers.Select(phoneNumber => new PhoneNumber
                 {
                     ContactNumber = phoneNumber
                 }).ToList()
             };
 
-            db.Contacts.Add(contact);
+            await db.Contacts.AddAsync(contact);
         }
         else
         {
-            contact = await GetContactModelById(contactDTO.Id);
-            contact.FirstName = contactDTO.FirstName;
-            contact.Surname = contactDTO.Surname;
-            contact.Email = contactDTO.Email;
-            contact.Company = contactDTO.Company;
+            contact = await GetContactModelById(dto.Id);
+            contact.FirstName = dto.FirstName;
+            contact.Surname = dto.Surname;
+            contact.Email = dto.Email;
+            contact.Company = dto.Company;
 
             db.Contacts.Update(contact);
         }
 
-        return await db.SaveChangesAsync();
+        await db.SaveChangesAsync();
+        return contact.Id;
     }
-
 }
