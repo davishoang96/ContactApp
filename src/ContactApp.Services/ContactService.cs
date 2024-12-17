@@ -1,15 +1,9 @@
 ﻿using ContactApp.DTO;
-using ContactApp.Models;
+using ContactApp.Repository;
+using ContactApp.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ContactApp.Database.Repositories;
-
-public interface IContactService
-{
-    Task<int> SaveOrUpdateContact(ContactDTO dto);
-    Task<ContactDTO> GetContactById(int id);
-    Task<IEnumerable<ContactDTO>> GetAllContacts();
-}
+namespace ContactApp.Services;
 
 public class ContactService : IContactService
 {

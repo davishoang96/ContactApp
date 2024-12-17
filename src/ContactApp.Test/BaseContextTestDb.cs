@@ -1,4 +1,4 @@
-﻿using ContactApp.Database;
+﻿using ContactApp.Repository;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 

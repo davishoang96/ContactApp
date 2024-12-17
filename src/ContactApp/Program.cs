@@ -1,4 +1,4 @@
-using ContactApp.Database;
+using ContactApp.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContactApp

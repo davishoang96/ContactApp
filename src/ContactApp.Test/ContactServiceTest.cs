@@ -1,7 +1,7 @@
-﻿using ContactApp.Database;
-using ContactApp.Database.Repositories;
-using ContactApp.DTO;
-using ContactApp.Models;
+﻿using ContactApp.DTO;
+using ContactApp.Repository;
+using ContactApp.Repository.Models;
+using ContactApp.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContactApp.Test;
