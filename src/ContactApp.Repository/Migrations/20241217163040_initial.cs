@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace ContactApp.Migrations
+namespace ContactApp.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,7 @@ namespace ContactApp.Migrations
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
                     Surname = table.Column<string>(type: "TEXT", nullable: false),
                     Company = table.Column<string>(type: "TEXT", nullable: true),
-                    AvatarUrl = table.Column<string>(type: "TEXT", nullable: true)
+                    Email = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

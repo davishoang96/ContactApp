@@ -1,4 +1,4 @@
-﻿namespace ContactApp.Models;
+﻿namespace ContactApp.Repository.Models;
 
 public class BaseModel
 {

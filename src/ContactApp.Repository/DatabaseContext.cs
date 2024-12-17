@@ -1,7 +1,7 @@
-﻿using ContactApp.Models;
+﻿using ContactApp.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ContactApp.Database;
+namespace ContactApp.Repository;
 
 public class DatabaseContext : DbContext
 {

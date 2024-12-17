@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ContactApp.Services\ContactApp.Services.csproj" />
     <ProjectReference Include="..\ContactApp\ContactApp.csproj" />
   </ItemGroup>
 
