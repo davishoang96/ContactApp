@@ -20,5 +20,13 @@ public class DatabaseContext : DbContext
             .HasOne(p => p.Contact)
             .WithMany(c => c.PhoneNumbers)
             .HasForeignKey(p => p.Contact_Id);
+
+        modelBuilder.Entity<Contact>()
+        .HasMany(c => c.PhoneNumbers)
+        .WithOne(p => p.Contact)
+        .HasForeignKey(p => p.Contact_Id)
+        .OnDelete(DeleteBehavior.Cascade); // Optional: Cascade delete
+
+        base.OnModelCreating(modelBuilder);
     }
 }
