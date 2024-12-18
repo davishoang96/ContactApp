@@ -4,7 +4,23 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle">
+        <thead class="table-primary">
+        <tr>
+            <th>Contact List</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var contact in Model.Dto)
+        {
+            <tr>
+                <td>@($"{contact.FirstName} {contact.Surname}")</td>
+                @* <td class="text-end"> *@
+                @*     <input type="checkbox" class="form-check-input" /> *@
+                @* </td> *@
+            </tr>
+        }
+        </tbody>
+    </table>
 </div>

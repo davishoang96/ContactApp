@@ -17,6 +17,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\ContactApp.Repository\ContactApp.Repository.csproj" />
+	  <ProjectReference Include="..\ContactApp.Services\ContactApp.Services.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
