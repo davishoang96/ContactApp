@@ -16,13 +16,20 @@ public class ContactService : IContactService
 
     public async Task<IEnumerable<ContactDTO>> GetAllContacts()
     {
-        return db.Contacts.Select(model => new ContactDTO
+        var contacts = await db.Contacts.ToListAsync();
+        if (contacts.Any())
         {
-            Email = model.Email,
-            Company = model.Company,
-            FirstName = model.FirstName,
-            Surname = model.Surname,
-        });
+            return contacts.Select(model => new ContactDTO
+            {
+                Id = model.Id,
+                Email = model.Email,
+                Company = model.Company,
+                FirstName = model.FirstName,
+                Surname = model.Surname,
+            });
+        }
+
+        return null;
     }
 
     private async Task<Contact> GetContactModelById(int id)

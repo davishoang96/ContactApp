@@ -1,4 +1,5 @@
 using ContactApp.Repository;
+using ContactApp.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContactApp
@@ -8,7 +9,10 @@ namespace ContactApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            
+            // DI Registration
+            builder.Services.AddScoped<IContactService, ContactService>();
+            
             // Add services to the container.
             builder.Services.AddRazorPages();
 

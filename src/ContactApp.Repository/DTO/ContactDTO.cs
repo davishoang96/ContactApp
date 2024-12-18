@@ -7,5 +7,5 @@ public class ContactDTO
     public string Surname { get; set; }
     public string? Company { get; set; }
     public string Email { get; set; }
-    public IEnumerable<string> PhoneNumbers { get; set; }
+    public List<string> PhoneNumbers { get; set; }
 }

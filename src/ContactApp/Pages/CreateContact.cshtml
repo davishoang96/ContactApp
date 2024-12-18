@@ -1,0 +1,78 @@
+@page
+@model ContactApp.Pages.CreateContact
+
+@{
+    ViewData["Title"] = "Create a contact";
+}
+
+<h2>Add Contact</h2>
+
+<form method="post" class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+            <label>First Name</label>
+            <input asp-for="Dto.FirstName" class="form-control" />
+            <span asp-validation-for="Dto.FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+            <label>Surname</label>
+            <input asp-for="Dto.Surname" class="form-control" />
+            <span asp-validation-for="Dto.Surname" class="text-danger"></span>
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+            <label>Email</label>
+            <input asp-for="Dto.Email" class="form-control" />
+            <span asp-validation-for="Dto.Email" class="text-danger"></span>
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+            <label>Company</label>
+            <input asp-for="Dto.Company" class="form-control" />
+            <span asp-validation-for="Dto.Company" class="text-danger"></span>
+        </div>
+    </div>
+
+    <!-- Phone Numbers Section -->
+    <div id="phoneNumbersContainer" class="mb-3">
+        <label>Phone Numbers</label>
+
+        @for (var i = 0; i < Model.Dto.PhoneNumbers.Count; i++)
+        {
+            <div class="input-group mb-2" id="phone-number-@i">
+                <input name="Input.PhoneNumbers[@i]" value="@Model.Dto.PhoneNumbers[i]" class="form-control" placeholder="Enter phone number" />
+                <button type="button" class="btn btn-danger" onclick="removePhoneNumber(this)">Remove</button>
+            </div>
+        }
+
+        <button type="button" class="btn btn-primary mb-2" onclick="addPhoneNumber()">Add Another</button>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">Save Contact</button>
+</form>
+
+<script>
+    let phoneNumberIndex = @Model.Dto.PhoneNumbers.Count;
+
+    // Add new phone number field
+    function addPhoneNumber() {
+        const container = document.getElementById("phoneNumbersContainer");
+        const div = document.createElement("div");
+        div.className = "input-group mb-2";
+        div.id = `phone-number-${phoneNumberIndex}`;
+
+        div.innerHTML = `
+        <input name="Dto.PhoneNumbers[${phoneNumberIndex}]" class="form-control" placeholder="Enter phone number" />
+        <button type="button" class="btn btn-danger" onclick="removePhoneNumber(this)">Remove</button>
+    `;
+        container.insertBefore(div, container.lastElementChild);
+        phoneNumberIndex++;
+    }
+
+
+    // Remove phone number field
+    function removePhoneNumber(button) {
+        button.parentElement.remove();
+    }
+</script>
