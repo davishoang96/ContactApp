@@ -1,11 +1,16 @@
 @page
 @model ContactApp.Pages.CreateContact
 
-@{
+@if (Model.ContactId == null || Model.ContactId == 0)
+{
+    <h2>Add Contact</h2>
     ViewData["Title"] = "Create a contact";
 }
-
-<h2>Add Contact</h2>
+else
+{
+    <h2>Edit Contact</h2>
+    ViewData["Title"] = "Edit Contact";
+}
 
 <form method="post" class="container">
     <div class="row">
@@ -34,15 +39,14 @@
         </div>
     </div>
 
-    <!-- Phone Numbers Section -->
     <div id="phoneNumbersContainer" class="mb-3">
         <label>Phone Numbers</label>
 
-        @for (var i = 0; i < Model.Dto.PhoneNumbers.Count; i++)
+        @for (int i = 0; i < Model.Dto.PhoneNumbers.Count; i++)
         {
-            <div class="input-group mb-2" id="phone-number-@i">
-                <input name="Input.PhoneNumbers[@i]" value="@Model.Dto.PhoneNumbers[i]" class="form-control" placeholder="Enter phone number" />
-                <button type="button" class="btn btn-danger" onclick="removePhoneNumber(this)">Remove</button>
+            <div class="form-group">
+                <input asp-for="Dto.PhoneNumbers[i]" class="form-control mb-2 @((!ModelState.IsValid && ModelState.ContainsKey($"Dto.PhoneNumbers[{i}]")) ? "is-invalid" : "")" placeholder="Enter phone number" />
+                <span asp-validation-for="Dto.PhoneNumbers[i]" class="text-danger"></span>
             </div>
         }
 
@@ -52,8 +56,51 @@
     <button type="submit" class="btn btn-success mt-3">Save Contact</button>
 </form>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
-    let phoneNumberIndex = @Model.Dto.PhoneNumbers.Count;
+    let phoneNumberIndex = @Model.Dto.PhoneNumbers.Count();
+
+    $(document).ready(function () {
+            let i = @Model.Dto.PhoneNumbers.Count;
+
+            $('#addPhoneNumber').click(function () {
+                i++;
+                $('<input>')
+                    .attr('asp-for', `Dto.PhoneNumbers[${i}]`)
+                    .attr('name', `Dto.PhoneNumbers[${i}]`)
+                    .attr('class', 'form-control mb-2')
+                    .attr('placeholder', 'Enter phone number')
+                    .insertBefore('#addPhoneNumber');
+            });
+
+            $('form').submit(function () {
+                let invalidPhoneNumbers = [];
+                $('#phoneNumberAlert').addClass('d-none').empty();
+
+                // Validate each phone number input
+                $('input[name^="Dto.PhoneNumbers"]').each(function () {
+                    const phoneNumber = $(this).val().trim();
+                    const isValid = /^\+?[0-9]{1,3}?[ \-]?\(?[0-9]{1,4}?\)?[0-9 \-]{5,15}$/.test(phoneNumber);
+                    if (isValid) {
+                        $(this).removeClass('is-invalid');
+                        
+                    } else {
+                        invalidPhoneNumbers.push(phoneNumber || 'Empty field');
+                        $(this).addClass('is-invalid');
+                    }
+                });
+
+                // Show an alert if there are invalid phone numbers
+                if (invalidPhoneNumbers.length > 0) {
+                    $('#phoneNumberAlert')
+                        .removeClass('d-none')
+                        .html('<strong>Invalid phone numbers:</strong> ' + invalidPhoneNumbers.join(', '));
+                    return false; // Prevent form submission
+                }
+
+                return true; // Allow form submission if all are valid
+            });
+        });
 
     // Add new phone number field
     function addPhoneNumber() {
@@ -69,7 +116,6 @@
         container.insertBefore(div, container.lastElementChild);
         phoneNumberIndex++;
     }
-
 
     // Remove phone number field
     function removePhoneNumber(button) {
