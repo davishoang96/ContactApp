@@ -7,33 +7,35 @@
 
 <h2>Add Contact</h2>
 
-<form method="post">
-    <div>
-        <label>First Name</label>
-        <input asp-for="Dto.FirstName" class="form-control" />
-        <span asp-validation-for="Dto.FirstName" class="text-danger"></span>
-    </div>
+<form method="post" class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+            <label>First Name</label>
+            <input asp-for="Dto.FirstName" class="form-control" />
+            <span asp-validation-for="Dto.FirstName" class="text-danger"></span>
+        </div>
 
-    <div>
-        <label>Surname</label>
-        <input asp-for="Dto.Surname" class="form-control" />
-        <span asp-validation-for="Dto.Surname" class="text-danger"></span>
-    </div>
+        <div class="col-12 col-md-6 mb-3">
+            <label>Surname</label>
+            <input asp-for="Dto.Surname" class="form-control" />
+            <span asp-validation-for="Dto.Surname" class="text-danger"></span>
+        </div>
 
-    <div>
-        <label>Email</label>
-        <input asp-for="Dto.Email" class="form-control" />
-        <span asp-validation-for="Dto.Email" class="text-danger"></span>
-    </div>
+        <div class="col-12 col-md-6 mb-3">
+            <label>Email</label>
+            <input asp-for="Dto.Email" class="form-control" />
+            <span asp-validation-for="Dto.Email" class="text-danger"></span>
+        </div>
 
-    <div>
-        <label>Company</label>
-        <input asp-for="Dto.Company" class="form-control" />
-        <span asp-validation-for="Dto.Company" class="text-danger"></span>
+        <div class="col-12 col-md-6 mb-3">
+            <label>Company</label>
+            <input asp-for="Dto.Company" class="form-control" />
+            <span asp-validation-for="Dto.Company" class="text-danger"></span>
+        </div>
     </div>
 
     <!-- Phone Numbers Section -->
-    <div id="phoneNumbersContainer">
+    <div id="phoneNumbersContainer" class="mb-3">
         <label>Phone Numbers</label>
 
         @for (var i = 0; i < Model.Dto.PhoneNumbers.Count; i++)
