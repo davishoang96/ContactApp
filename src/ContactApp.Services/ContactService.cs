@@ -34,7 +34,7 @@ public class ContactService : IContactService
 
     private async Task<Contact> GetContactModelById(int id)
     {
-        var model = await db.Contacts.Include(s=>s.PhoneNumbers).SingleOrDefaultAsync(s => s.Id == id);
+        var model = await db.Contacts.Include(s => s.PhoneNumbers).SingleOrDefaultAsync(s => s.Id == id);
         if (model == null)
         {
             return null;
@@ -53,10 +53,12 @@ public class ContactService : IContactService
 
         return new ContactDTO
         {
+            Id = model.Id,
             FirstName = model.FirstName,
             Surname = model.Surname,
             Email = model.Email,
             Company = model.Company,
+            PhoneNumbers = model.PhoneNumbers.Select(s => s.ContactNumber).ToList(),
         };
     }
 
@@ -87,6 +89,34 @@ public class ContactService : IContactService
             contact.Surname = dto.Surname;
             contact.Email = dto.Email;
             contact.Company = dto.Company;
+
+            var existingPhoneNumbers = contact.PhoneNumbers.ToList();
+
+            // Remove phone numbers that are not in the DTO
+            foreach (var phoneNumber in existingPhoneNumbers)
+            {
+                if (!dto.PhoneNumbers.Contains(phoneNumber.ContactNumber))
+                {
+                    db.PhoneNumbers.Remove(phoneNumber);
+                }
+            }
+
+            // Add or update phone numbers
+            foreach (var phoneNumber in dto.PhoneNumbers)
+            {
+                var existingPhoneNumber = existingPhoneNumbers
+                    .FirstOrDefault(pn => pn.ContactNumber == phoneNumber);
+
+                if (existingPhoneNumber == null)
+                {
+                    // Add new phone number
+                    contact.PhoneNumbers.Add(new PhoneNumber
+                    {
+                        ContactNumber = phoneNumber
+                    });
+                }
+            }
+
             db.Contacts.Update(contact);
         }
 
