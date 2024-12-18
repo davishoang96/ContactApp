@@ -20,14 +20,4 @@
 	  <ProjectReference Include="..\ContactApp.Services\ContactApp.Services.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <_ContentIncludedByDefault Remove="wwwroot\css\site.css" />
-	  <_ContentIncludedByDefault Remove="wwwroot\favicon.ico" />
-	  <_ContentIncludedByDefault Remove="wwwroot\js\site.js" />
-	  <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\LICENSE" />
-	  <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
-	  <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\LICENSE.md" />
-	  <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
-	</ItemGroup>
-
 </Project>
